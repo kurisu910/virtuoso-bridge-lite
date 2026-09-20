@@ -1,0 +1,60 @@
+simulator lang=spectre
+global 0
+include "/opt/pdk/tsmc28hpcp_1p8m_5x2z/models/spectre/toplevel.scs" section=top_tt
+
+parameters VDDVAL=0.9 VCMVAL=0.45 VBNTVAL=0.55 VBPTVAL=0.43 VBPFVAL=0.25 VBNCVAL=0.60
+parameters W_IN=36u L_IN=60n NF_IN=24
+parameters W_TAIL=18u L_TAIL=90n NF_TAIL=24
+parameters W_PTOP=40u L_PTOP=120n NF_PTOP=20
+parameters W_FOLD=24u L_FOLD=240n NF_FOLD=24
+parameters W_NCAS=24u L_NCAS=180n NF_NCAS=16
+parameters W_NSINK=24u L_NSINK=180n NF_NSINK=16
+parameters W_CM=2u L_CM=90n NF_CM=8
+parameters W_CMLOAD=4u L_CMLOAD=90n NF_CMLOAD=8
+parameters W_CMTAIL=2u L_CMTAIL=90n NF_CMTAIL=8
+parameters CL=50f RCM=10Meg CCM=200f
+
+VDD (vdd 0) vsource dc=VDDVAL
+VINP (vinp 0) vsource dc=VCMVAL mag=0.5 phase=0 type=dc
+VINN (vinn 0) vsource dc=VCMVAL mag=0.5 phase=180 type=dc
+VCMREF (vcmref 0) vsource dc=VCMVAL
+VBNTAIL (vbntail 0) vsource dc=VBNTVAL
+VBPTOP (vbptop 0) vsource dc=VBPTVAL
+VBPFOLD (vbpfold 0) vsource dc=VBPFVAL
+VBNCAS (vbncas 0) vsource dc=VBNCVAL
+
+// NMOS input pair and tail source
+XMNIP (xp vinp ntail 0) nch_mac w=W_IN l=L_IN nf=NF_IN
+XMNIN (xn vinn ntail 0) nch_mac w=W_IN l=L_IN nf=NF_IN
+XMNTAIL (ntail vbntail 0 0) nch_mac w=W_TAIL l=L_TAIL nf=NF_TAIL
+
+// PMOS top sources and PMOS folding common-gate devices
+XMPTOPP (xp vbptop vdd vdd) pch_mac w=W_PTOP l=L_PTOP nf=NF_PTOP
+XMPTOPN (xn vbptop vdd vdd) pch_mac w=W_PTOP l=L_PTOP nf=NF_PTOP
+XMPFOLDP (vop vbpfold xp vdd) pch_mac w=W_FOLD l=L_FOLD nf=NF_FOLD
+XMPFOLDN (von vbpfold xn vdd) pch_mac w=W_FOLD l=L_FOLD nf=NF_FOLD
+
+// NMOS cascoded output sinks; CMFB controls the lower devices
+XMNCASP (vop vbncas nsinkp 0) nch_mac w=W_NCAS l=L_NCAS nf=NF_NCAS
+XMNCASN (von vbncas nsinkn 0) nch_mac w=W_NCAS l=L_NCAS nf=NF_NCAS
+XMNSINKP (nsinkp vbncm 0 0) nch_mac w=W_NSINK l=L_NSINK nf=NF_NSINK
+XMNSINKN (nsinkn vbncm 0 0) nch_mac w=W_NSINK l=L_NSINK nf=NF_NSINK
+
+// Continuous-time CMFB: passive output averaging + NMOS error pair
+RCMP (vop vcms) resistor r=RCM
+RCMN (von vcms) resistor r=RCM
+CCMS (vcms 0) capacitor c=20f
+XMNCM_S (ncm1 vcms ncmtail 0) nch_mac w=W_CM l=L_CM nf=NF_CM
+XMNCM_R (vbncm vcmref ncmtail 0) nch_mac w=W_CM l=L_CM nf=NF_CM
+XMNCM_T (ncmtail vbntail 0 0) nch_mac w=W_CMTAIL l=L_CMTAIL nf=NF_CMTAIL
+XMPCM_D (ncm1 ncm1 vdd vdd) pch_mac w=W_CMLOAD l=L_CMLOAD nf=NF_CMLOAD
+XMPCM_O (vbncm ncm1 vdd vdd) pch_mac w=W_CMLOAD l=L_CMLOAD nf=NF_CMLOAD
+CCMCOMP (vbncm 0) capacitor c=CCM
+
+CLOADP (vop 0) capacitor c=CL
+CLOADN (von 0) capacitor c=CL
+
+dcOp dc
+ac ac start=1k stop=100G dec=60
+save VOP VON VCMS VBNCM XP XN NTAIL NSINKP NSINKN
+saveOptions options save=selected
