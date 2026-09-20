@@ -1,0 +1,91 @@
+simulator lang=spectre
+global 0
+include "/opt/pdk/tsmc28hpcp_1p8m_5x2z/models/spectre/cln28hpcp_1d8_elk_v1d0_2p2_shrink0d9_embedded_usage.scs" section=ttmacro_mos_moscap
+
+parameters VDDVAL=0.9 VCMVAL=VDDVAL/2
+parameters IREF=20u
+parameters W_NREF=180n L_NREF=90n NF_NREF=1
+parameters W_PREF=1.6u L_PREF=120n NF_PREF=1
+parameters W_NPMSINK=180n L_NPMSINK=90n NF_NPMSINK=1
+parameters W_PTOPR=2u L_PTOPR=120n NF_PTOPR=1
+parameters W_FOLDR=1u L_FOLDR=240n NF_FOLDR=1
+parameters W_NFOLDSINK=468n L_NFOLDSINK=180n NF_NFOLDSINK=1
+parameters W_PCAS=250n L_PCAS=120n NF_PCAS=1
+parameters W_NCASR=40u L_NCASR=180n NF_NCASR=20
+parameters W_NCASB=40u L_NCASB=180n NF_NCASB=20
+parameters W_PCM=2u L_PCM=120n NF_PCM=1
+parameters W_NCMR=1.5u L_NCMR=90n NF_NCMR=1
+parameters W_IN=36u L_IN=60n NF_IN=24
+parameters W_TAIL=18u L_TAIL=90n NF_TAIL=24
+parameters W_PTOP=40u L_PTOP=120n NF_PTOP=20
+parameters W_FOLD=24u L_FOLD=240n NF_FOLD=24
+parameters W_NCAS=24u L_NCAS=180n NF_NCAS=16
+parameters W_NSINK=24u L_NSINK=180n NF_NSINK=16
+parameters W_CM=2u L_CM=90n NF_CM=8
+parameters W_CMLOAD=4u L_CMLOAD=90n NF_CMLOAD=8
+parameters W_CMTAIL=2u L_CMTAIL=90n NF_CMTAIL=8
+parameters CL=50f RCM=10Meg CCM=200f RZ=1k CZ=45f
+
+VDD (vdd 0) vsource dc=VDDVAL
+VINP (vinp 0) vsource dc=VCMVAL mag=0.5 phase=0 type=dc
+VINN (vinn 0) vsource dc=VCMVAL mag=0.5 phase=180 type=dc
+// IDC establishes the only absolute reference current.
+IREFSRC (vdd vbntail) isource dc=IREF
+XMNREF (vbntail vbntail 0 0) nch_mac w=W_NREF l=L_NREF nf=NF_NREF
+
+// Complementary PMOS bias generated from the NMOS reference mirror.
+XMPREF (vbptop vbptop vdd vdd) pch_mac w=W_PREF l=L_PREF nf=NF_PREF
+XMN_PREF_SINK (vbptop vbntail 0 0) nch_mac w=W_NPMSINK l=L_NPMSINK nf=NF_NPMSINK
+
+// Replica of the PMOS top/folded stack.  The folded device is diode connected.
+XMPTOP_REF (xfold_ref vbptop vdd vdd) pch_mac w=W_PTOPR l=L_PTOPR nf=NF_PTOPR
+XMPFOLD_REF (vbpfold vbpfold xfold_ref vdd) pch_mac w=W_FOLDR l=L_FOLDR nf=NF_FOLDR
+XMN_FOLD_SINK (vbpfold vbntail 0 0) nch_mac w=W_NFOLDSINK l=L_NFOLDSINK nf=NF_NFOLDSINK
+
+// Low-current two-NMOS replica stack for the NMOS cascode gate.
+XMP_NCAS_SOURCE (vbncas vbptop vdd vdd) pch_mac w=W_PCAS l=L_PCAS nf=NF_PCAS
+XMN_CAS_DIODE (vbncas vbncas ncas_mid 0) nch_mac w=W_NCASR l=L_NCASR nf=NF_NCASR
+XMN_CAS_BOTTOM (ncas_mid ncas_mid 0 0) nch_mac w=W_NCASB l=L_NCASB nf=NF_NCASB
+
+// Common-mode reference is a PMOS mirror feeding a diode-connected NMOS.
+XMP_VCM_SOURCE (vcmref vbptop vdd vdd) pch_mac w=W_PCM l=L_PCM nf=NF_PCM
+XMN_VCM_DIODE (vcmref vcmref 0 0) nch_mac w=W_NCMR l=L_NCMR nf=NF_NCMR
+
+// NMOS input pair and tail source
+XMNIP (xp vinp ntail 0) nch_mac w=W_IN l=L_IN nf=NF_IN
+XMNIN (xn vinn ntail 0) nch_mac w=W_IN l=L_IN nf=NF_IN
+XMNTAIL (ntail vbntail 0 0) nch_mac w=W_TAIL l=L_TAIL nf=NF_TAIL
+
+// PMOS top sources and PMOS folding common-gate devices
+XMPTOPP (xp vbptop vdd vdd) pch_mac w=W_PTOP l=L_PTOP nf=NF_PTOP
+XMPTOPN (xn vbptop vdd vdd) pch_mac w=W_PTOP l=L_PTOP nf=NF_PTOP
+XMPFOLDP (vop vbpfold xp vdd) pch_mac w=W_FOLD l=L_FOLD nf=NF_FOLD
+XMPFOLDN (von vbpfold xn vdd) pch_mac w=W_FOLD l=L_FOLD nf=NF_FOLD
+
+// NMOS cascoded output sinks; CMFB controls the lower devices
+XMNCASP (vop vbncas nsinkp 0) nch_mac w=W_NCAS l=L_NCAS nf=NF_NCAS
+XMNCASN (von vbncas nsinkn 0) nch_mac w=W_NCAS l=L_NCAS nf=NF_NCAS
+XMNSINKP (nsinkp vbncm 0 0) nch_mac w=W_NSINK l=L_NSINK nf=NF_NSINK
+XMNSINKN (nsinkn vbncm 0 0) nch_mac w=W_NSINK l=L_NSINK nf=NF_NSINK
+
+// Continuous-time CMFB: passive output averaging + NMOS error pair
+RCMP (vop vcms) resistor r=RCM
+RCMN (von vcms) resistor r=RCM
+CCMS (vcms 0) capacitor c=20f
+XMNCM_S (ncm1 vcms ncmtail 0) nch_mac w=W_CM l=L_CM nf=NF_CM
+XMNCM_R (vbncm vcmref ncmtail 0) nch_mac w=W_CM l=L_CM nf=NF_CM
+XMNCM_T (ncmtail vbntail 0 0) nch_mac w=W_CMTAIL l=L_CMTAIL nf=NF_CMTAIL
+XMPCM_D (ncm1 ncm1 vdd vdd) pch_mac w=W_CMLOAD l=L_CMLOAD nf=NF_CMLOAD
+XMPCM_O (vbncm ncm1 vdd vdd) pch_mac w=W_CMLOAD l=L_CMLOAD nf=NF_CMLOAD
+CCMCOMP (vbncm 0) capacitor c=CCM
+
+CLOADP (vop 0) capacitor c=CL
+CLOADN (von 0) capacitor c=CL
+RLEAD (vop vlead) resistor r=RZ
+CLEAD (vlead von) capacitor c=CZ
+
+simulatorOptions options temp=27
+dcOp dc
+ac ac start=1k stop=100G dec=60
+save VOP VON VCMS VBNCM XP XN NTAIL NSINKP NSINKN VBNTail VBPTOP VBPFOLD VBNCAS VCMREF NCAS_MID
+saveOptions options save=selected
