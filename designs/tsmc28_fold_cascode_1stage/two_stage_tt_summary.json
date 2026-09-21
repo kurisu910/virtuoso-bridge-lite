@@ -1,0 +1,19 @@
+{
+  "library": "FC_OTA_0P9V_TSMC28",
+  "cell": "fold_cascode_2stage_1v_tt",
+  "vdd_v": 1.0,
+  "load_per_output_f": 50,
+  "gain_db": 77.2192,
+  "ugf_hz": 6547251323.0,
+  "phase_margin_deg": 60.932,
+  "differential_output_swing_vpp": 1.80574,
+  "output_common_mode_v": 0.447996,
+  "supply_current_a": 0.00594129,
+  "compensation_per_side": {"resistance_ohm": 300, "capacitance_f": 80},
+  "second_stage": {
+    "nmos": {"w": "40u", "l": "60n", "fingers": 40},
+    "pmos": {"w": "40u", "l": "120n", "fingers": 20}
+  },
+  "second_stage_cmfb": {"type": "ideal", "gain": 100, "reference_v": 0.45},
+  "pvt_complete": false
+}

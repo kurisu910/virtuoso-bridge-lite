@@ -77,6 +77,31 @@ high-bandwidth fully differential second stage with a dedicated second-stage
 CMFB loop. Use Miller/Ahuja compensation with a nulling element, and validate
 the differential loop and common-mode loop separately before running PVT.
 
+## Verified two-stage implementation
+
+The recommended continuation was implemented and saved as
+`FC_OTA_0P9V_TSMC28/fold_cascode_2stage_1v_tt/schematic`.
+
+Architecture:
+
+- Existing NMOS-input folded-cascode first stage.
+- NMOS common-source second stage with PMOS active loads.
+- Ideal second-stage output CMFB referenced to 450 mV.
+- Per-side Miller network: 300 ohm in series with 80 fF.
+- Explicit 50 fF load capacitor on each final output (`OUTP`, `OUTN`).
+
+TT results at VDD=1.0 V:
+
+- Differential gain: 77.22 dB
+- Unity-gain bandwidth: 6.547 GHz
+- Phase margin: 60.93 degrees
+- Differential output swing: 1.806 Vpp
+- Output common mode: 448.0 mV
+- Supply current: 5.94 mA
+
+These results use ideal CMFB for the second stage and have not yet been run
+across PVT.
+
 For work from another computer, connect to this Windows host as a Codex SSH
 host (preferably through a VPN/mesh network), then open the saved project
 `E:\64459\Projects\virtuoso-bridge-lite`. The bridge on this host can continue
