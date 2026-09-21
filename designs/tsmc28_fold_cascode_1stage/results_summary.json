@@ -1,0 +1,33 @@
+{
+  "virtuoso": {
+    "library": "FC_OTA_0P9V_TSMC28",
+    "active_cell": "fold_cascode_1stage",
+    "baseline_backup_cell": "fold_cascode_1stage_baseline_20260921"
+  },
+  "saved_oa_version": {
+    "vdd_v": 0.9,
+    "load_per_output_f": 50,
+    "gain_db": 51.8446,
+    "ugf_hz": 8231528184.0,
+    "phase_margin_deg": 28.7377,
+    "differential_output_swing_vpp": 1.57732,
+    "balanced_output_common_mode_v": 0.447684,
+    "supply_current_a": 0.00209267,
+    "parameters": {
+      "M2": {"w": "144u", "l": "60n", "fingers": 96},
+      "M3": {"w": "144u", "l": "60n", "fingers": 96},
+      "M4": {"w": "216u", "l": "90n", "fingers": 288},
+      "M9": {"w": "32u", "l": "210n", "fingers": 16},
+      "M10": {"w": "32u", "l": "210n", "fingers": 16},
+      "E0": {"egain": 50}
+    }
+  },
+  "vdd_1v_bounded_search": {
+    "written_to_oa": false,
+    "best_pm_while_ugf_above_6p5g_deg": 45.5817,
+    "corresponding_gain_db": 54.8732,
+    "corresponding_ugf_hz": 6704277508.0,
+    "requirements_met": false,
+    "limitation": "internal non-dominant poles"
+  }
+}
