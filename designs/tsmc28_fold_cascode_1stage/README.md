@@ -102,6 +102,24 @@ TT results at VDD=1.0 V:
 These results use ideal CMFB for the second stage and have not yet been run
 across PVT.
 
+### PVT verification
+
+A 45-point sweep was subsequently run over TT/SS/FF/SF/FS, VDD=0.9/1.0/1.1 V,
+and temperature=-40/27/125 C. Only 8/45 points simultaneously met gain >=
+50 dB, UGBW >= 6.5 GHz, PM >= 60 degrees, and output common mode within 20 mV
+of 450 mV.
+
+- Slow and hot points commonly reduced UGBW to roughly 5.4--6.0 GHz.
+- Several mixed/low-voltage points converged to a nonphysical DC branch,
+  including negative apparent supply current or an invalid CMFB bias voltage.
+- At 1.0 V and 27 C, TT and FF passed; SS missed both UGBW and PM, SF narrowly
+  missed both, and FS converged to the wrong DC branch.
+
+Conclusion: the saved two-stage cell is verified at TT only and is not PVT
+qualified. The next revision should replace/limit the ideal output-CMFB control,
+make the second-stage bias corner-tracking, and recover speed at SS/hot before
+another PVT sweep.
+
 For work from another computer, connect to this Windows host as a Codex SSH
 host (preferably through a VPN/mesh network), then open the saved project
 `E:\64459\Projects\virtuoso-bridge-lite`. The bridge on this host can continue

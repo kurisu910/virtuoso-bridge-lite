@@ -1,0 +1,20 @@
+{
+  "total_points": 45,
+  "passing_points": 8,
+  "corners": ["TT", "SS", "FF", "SF", "FS"],
+  "vdd_v": [0.9, 1.0, 1.1],
+  "temperature_c": [-40, 27, 125],
+  "criteria": {
+    "gain_db_min": 50,
+    "ugf_hz_min": 6500000000.0,
+    "phase_margin_deg_min": 60,
+    "output_common_mode_target_v": 0.45,
+    "output_common_mode_tolerance_v": 0.02
+  },
+  "passing_tags": [
+    "FF_v100_tm40", "FF_v100_tp27", "FF_v110_tm40", "FF_v110_tp27",
+    "FS_v110_tm40", "FS_v110_tp27", "TT_v100_tp27", "TT_v110_tp27"
+  ],
+  "nonphysical_dc_points": 4,
+  "conclusion": "TT target achieved; design is not PVT qualified"
+}
