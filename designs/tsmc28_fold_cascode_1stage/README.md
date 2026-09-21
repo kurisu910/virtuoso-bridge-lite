@@ -60,6 +60,10 @@ OA cell, without changing the 0.9 V cell:
 - M5/M6: W=18 um, L=180 nm, fingers=18
 - M9/M10: W=32 um, L=210 nm, fingers=16
 - Differential compensation: 2 kohm in series with 8 fF on each side
+- Stable folded-node names in the saved schematic: `FOLDP` is the M3-drain /
+  M5-source node, and `FOLDN` is the M2-drain / M6-source node. The
+  compensation capacitors terminate on `FOLDP` and `FOLDN`; Cadence-generated
+  `netXXX` names must not be used because they change when a cell is copied.
 - Recorded TT result: 54.87 dB / 6.70 GHz / 45.6 degree PM at 1.0 V and
   50 fF per output
 
