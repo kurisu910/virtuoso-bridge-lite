@@ -23,7 +23,8 @@
     }
   },
   "vdd_1v_bounded_search": {
-    "written_to_oa": false,
+    "written_to_oa": true,
+    "oa_cell": "fold_cascode_1stage_1v_pm45p6",
     "best_pm_while_ugf_above_6p5g_deg": 45.5817,
     "corresponding_gain_db": 54.8732,
     "corresponding_ugf_hz": 6704277508.0,

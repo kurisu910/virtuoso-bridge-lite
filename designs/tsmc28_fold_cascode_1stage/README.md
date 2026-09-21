@@ -51,6 +51,21 @@ Conclusion: the present single-stage topology could not simultaneously meet
 gain >= 50 dB, UGBW >= 6.5 GHz, and PM >= 60 degrees in the bounded sweep.
 No 1.0 V experimental parameters were applied to the OA schematic.
 
+The selected 1.0 V experimental point was subsequently saved as a separate
+OA cell, without changing the 0.9 V cell:
+
+- Cell: `fold_cascode_1stage_1v_pm45p6/schematic`
+- M2/M3: W=27 um, L=60 nm, fingers=18
+- M4: W=108 um, L=90 nm, fingers=144
+- M5/M6: W=18 um, L=180 nm, fingers=18
+- M9/M10: W=32 um, L=210 nm, fingers=16
+- Differential compensation: 2 kohm in series with 8 fF on each side
+- Recorded TT result: 54.87 dB / 6.70 GHz / 45.6 degree PM at 1.0 V and
+  50 fF per output
+
+This cell records the best bounded 1.0 V experiment; it does not meet the
+60-degree phase-margin goal.
+
 ## Recommended continuation
 
 Use the folded-cascode as the first stage and investigate a lightweight,
