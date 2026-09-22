@@ -1,0 +1,47 @@
+[
+  {
+    "corner": "TT",
+    "ok": true,
+    "gain_db": 73.26150045456743,
+    "ugf_hz": 12331435666.513962,
+    "phase_margin_deg": 63.027781329436266,
+    "output_common_mode_v": 0.4502100760193881,
+    "meets_core_specs": true
+  },
+  {
+    "corner": "FF",
+    "ok": true,
+    "gain_db": 72.06951416765891,
+    "ugf_hz": 14502988478.984287,
+    "phase_margin_deg": 60.25894009688405,
+    "output_common_mode_v": 0.4497742095269359,
+    "meets_core_specs": true
+  },
+  {
+    "corner": "SS",
+    "ok": true,
+    "gain_db": 73.34973366132594,
+    "ugf_hz": 9675111884.253366,
+    "phase_margin_deg": 68.11608224173492,
+    "output_common_mode_v": 0.4506095711155498,
+    "meets_core_specs": true
+  },
+  {
+    "corner": "FS",
+    "ok": true,
+    "gain_db": 72.92666411565963,
+    "ugf_hz": 13152153100.333061,
+    "phase_margin_deg": 62.87136359797336,
+    "output_common_mode_v": 0.4498827357442316,
+    "meets_core_specs": true
+  },
+  {
+    "corner": "SF",
+    "ok": true,
+    "gain_db": 73.0688833535749,
+    "ugf_hz": 11091266002.995062,
+    "phase_margin_deg": 65.14026774511495,
+    "output_common_mode_v": 0.45049593893997875,
+    "meets_core_specs": true
+  }
+]

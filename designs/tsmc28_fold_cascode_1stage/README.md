@@ -124,3 +124,26 @@ For work from another computer, connect to this Windows host as a Codex SSH
 host (preferably through a VPN/mesh network), then open the saved project
 `E:\64459\Projects\virtuoso-bridge-lite`. The bridge on this host can continue
 to control the VMware-hosted Virtuoso through its existing SSH setup.
+
+## Current mirror-biased two-stage revision
+
+The corner-tracking second-stage bias revision is saved in Virtuoso as
+`FC_OTA_0P9V_TSMC28/fold_cascode_2stage_1v_mirrorbias_tt/schematic`. The
+previous `fold_cascode_2stage_1v_tt` cell remains unchanged as a backup.
+
+- VDD: 1.0 V; output load: 50 fF per side.
+- Second-stage PMOS load bias: diode-connected `MP2REF` plus the ideal
+  250 uA reference source `IREF2`; there is no fixed VBIAS2 voltage source.
+- M9/M10: W=27.44 um, L=180 nm, fingers=16, matching the reference branch
+  channel length while preserving the former W/L ratio.
+- Per-side compensation: 300 ohm in series with 122 fF.
+- Both ideal CMFB loops are retained for this schematic-level feasibility
+  result; the second-stage output common-mode target is 450 mV.
+
+Final TT result: 73.26 dB gain, 12.34 GHz UGBW, 62.64 degree PM, 450.21 mV
+output common mode, and 1.816 Vpp differential DC-sweep output range.
+
+At 1.0 V and 27 C, all five process corners meet gain >= 50 dB, UGBW >=
+6.5 GHz, and PM >= 60 degrees. The worst values across TT/FF/SS/FS/SF are
+72.07 dB, 9.68 GHz, and 60.26 degrees respectively. This is a process-corner
+sweep only, not the complete voltage/temperature matrix.

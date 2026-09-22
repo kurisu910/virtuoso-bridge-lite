@@ -1,0 +1,28 @@
+{
+  "cell": "fold_cascode_2stage_1v_mirrorbias_tt",
+  "corner": "TT",
+  "vdd_v": 1.0,
+  "load_per_output_f": 50,
+  "compensation_cap_f": "122f",
+  "gain_db": 73.2615004045858,
+  "ugf_hz": 12338823531.087173,
+  "phase_at_ugf_deg": -117.3563843076738,
+  "phase_margin_deg": 62.64361569232619,
+  "output_common_mode_v": 0.4502100760193881,
+  "vbias2_v": 0.38003251035798,
+  "vbp2_v": 0.4010401122967945,
+  "supply_current_a": 0.007895355515829301,
+  "dc": {
+    "dc_VDD:p": -0.007895355515829301,
+    "dc_OUTN": 0.4502100760193733,
+    "dc_VOP": 0.4496631952080424,
+    "dc_VON": 0.4496631952080448,
+    "dc_VBIAS2": 0.38003251035798,
+    "dc_VBP2": 0.4010401122967945,
+    "dc_VCM2": 0.4502100760193882,
+    "dc_VDDA": 1.0,
+    "dc_VDDS": 0.0,
+    "dc_OUTP": 0.450210076019403
+  },
+  "output_dir": "E:\\64459\\Projects\\virtuoso-bridge-lite\\designs\\tsmc28_fold_cascode_1stage\\mirrorbias_runs\\mirrorbias_tt.raw"
+}

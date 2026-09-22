@@ -1,0 +1,7 @@
+{
+  "differential_output_min_v": -0.9077939905058455,
+  "differential_output_max_v": 0.907793990505849,
+  "differential_output_swing_vpp": 1.8155879810116944,
+  "single_ended_outp_min_v": 9.554229670032548e-06,
+  "single_ended_outp_max_v": 0.9078035447355188
+}

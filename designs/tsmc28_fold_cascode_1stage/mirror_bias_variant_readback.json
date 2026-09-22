@@ -1,0 +1,133 @@
+{
+  "library": "FC_OTA_0P9V_TSMC28",
+  "source_backup": "fold_cascode_2stage_1v_tt",
+  "target": "fold_cascode_2stage_1v_mirrorbias_tt",
+  "checks": {
+    "fixed_vbias_removed": true,
+    "mirror_reference_present": true,
+    "m9_m10_l_180n": true,
+    "reference_supply_nets": true
+  },
+  "instances": {
+    "IREF2": {
+      "cell": "idc",
+      "params": {
+        "idc": "250u"
+      },
+      "terms": {
+        "PLUS": "VBIAS2",
+        "MINUS": "VDDS"
+      }
+    },
+    "MP2REF": {
+      "cell": "pch_mac",
+      "params": {
+        "w": "4u",
+        "l": "120.0n",
+        "fingers": "2"
+      },
+      "terms": {
+        "D": "VBIAS2",
+        "G": "VBIAS2",
+        "B": "VDDA",
+        "S": "VDDA"
+      }
+    },
+    "MP2N": {
+      "cell": "pch_mac",
+      "params": {
+        "w": "40u",
+        "l": "120.0n",
+        "fingers": "20"
+      },
+      "terms": {
+        "D": "OUTN",
+        "G": "VBP2",
+        "B": "VDDA",
+        "S": "VDDA"
+      }
+    },
+    "MP2P": {
+      "cell": "pch_mac",
+      "params": {
+        "w": "40u",
+        "l": "120.0n",
+        "fingers": "20"
+      },
+      "terms": {
+        "D": "OUTP",
+        "G": "VBP2",
+        "B": "VDDA",
+        "S": "VDDA"
+      }
+    },
+    "M16": {
+      "cell": "nch_lvt_mac",
+      "params": {
+        "w": "24.0u",
+        "l": "180.0n",
+        "fingers": "16"
+      },
+      "terms": {
+        "G": "VB5",
+        "D": "net033",
+        "S": "VDDS",
+        "B": "VDDS"
+      }
+    },
+    "M15": {
+      "cell": "nch_lvt_mac",
+      "params": {
+        "w": "24.0u",
+        "l": "180.0n",
+        "fingers": "16"
+      },
+      "terms": {
+        "G": "VB4",
+        "D": "VB5",
+        "S": "net033",
+        "B": "VDDS"
+      }
+    },
+    "M10": {
+      "cell": "nch_lvt_mac",
+      "params": {
+        "w": "27.44u",
+        "l": "180.0n",
+        "fingers": "16"
+      },
+      "terms": {
+        "G": "VB5",
+        "D": "net15",
+        "S": "VDDS",
+        "B": "VDDS"
+      }
+    },
+    "M9": {
+      "cell": "nch_lvt_mac",
+      "params": {
+        "w": "27.44u",
+        "l": "180.0n",
+        "fingers": "16"
+      },
+      "terms": {
+        "G": "VB5",
+        "D": "net14",
+        "S": "VDDS",
+        "B": "VDDS"
+      }
+    },
+    "ECM2": {
+      "cell": "vcvs",
+      "params": {
+        "egain": "100"
+      },
+      "terms": {
+        "NC+": "VCM2",
+        "NC-": "VCMREF2",
+        "PLUS": "VBP2",
+        "MINUS": "VBIAS2"
+      }
+    }
+  }
+}
